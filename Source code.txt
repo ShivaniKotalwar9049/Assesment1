@@ -1,0 +1,164 @@
+package FSD_File_handeling_Assesment;
+import java.util.*;
+import java.io.*;
+public class Fileproject {
+
+	public static void main(String[] args) throws IOException{
+
+		boolean flag =false;
+		String filedelete;
+		File[] Pathnames;
+		Scanner sc=new Scanner(System.in);
+		String path="C:\\Files";
+		File f=new File("C:\\\\Files");
+		Pathnames=f.listFiles();
+		String s;
+
+		//Display filenames logic
+		while(true)
+		{
+			System.out.println("Please select option from below which you want to exeute");
+			System.out.println("1. Display the files in  C:\\Files path \n2. Menu\n3. Exit application");
+			
+			
+			int choice=sc.nextInt();
+			if(choice == 1)
+			{
+				for(File Pathname: Pathnames)
+				{
+					System.out.println(Pathname.getName());
+				}
+			}
+
+			else if(choice==2)
+			{
+				while(true)
+				{
+					System.out.println("Please select option from below which you want to exeute");
+					System.out.println("1. Add \n2. Delete \n3. Search \n4. Exit from menu");
+					int ch=sc.nextInt();
+
+					switch(ch)
+					{
+					case 1:
+						//Add file logic
+						System.out.println("Enter the name of the file you want to add in the directory");
+						sc.nextLine();
+						String filename=sc.nextLine();
+						File f1=new File(path, filename);
+						boolean b=f1.createNewFile();
+						if(b==true)
+						{
+							System.out.println("File with name "+ filename+" is created in the directory "+path);
+							
+						}break;
+
+					case 2: 
+						//Delete file logic
+						Pathnames=f.listFiles();
+						System.out.println("Enter the file name you want to delete from the directory " + path);
+						sc.nextLine();
+						filedelete=sc.nextLine();
+						while(true)
+						{
+							
+							
+							for(File ff:Pathnames)
+							{
+
+								if(ff.getName().equals(filedelete)==true)
+								{
+
+									flag=true;
+									boolean b1=ff.delete();
+									if(b1==true)
+									{
+										System.out.println("The file "+ filedelete +" is deleted from the directory " + path);
+									}
+
+								}
+
+							}
+							if(flag==true)
+							{
+								break;
+							}
+							else if(flag==false)
+							{
+								System.out.println("The file does not exists in the directory" + path+"Please enter correct filename or press E if you want to exit");								
+								filedelete=sc.nextLine();
+								if(filedelete.equals("E")==true)
+								{
+									break;
+								}
+								else
+									continue;
+							}
+							
+						}break;
+					case 3:
+						/// Search file logic
+					{
+						System.out.println("Enter the file name you want to search the directory" + path);
+						sc.nextLine();
+						String search=sc.nextLine();
+						flag=false;
+						Pathnames=f.listFiles();
+						for(File ff:Pathnames)
+						{
+
+							if(ff.getName().equals(search)==true)
+							{
+								flag=true;
+								System.out.println("The file exists in the directory" + path);
+								break;
+							}
+
+						}
+						if(flag==false)
+						{
+							System.out.println("The file does not exists in the directory" + path);	
+							
+						}
+					}
+						break;
+
+					case 4: 
+						//Exit menu logic
+						break;
+
+					default:
+					{
+						System.out.println("Wrong choice, please enter choice from 1, 2, 3, 4");
+						break;
+					}
+
+					}
+					if(ch==4)
+					{
+						break;
+					}
+				}
+
+
+			}
+			else if(choice==3)
+			{
+				System.out.println("Comming out of the application");
+				System.exit(0);
+			}
+
+			else 
+			{
+				System.out.println("Wrong choise, please select from 1 and 2");
+				break;
+			}
+			
+		}
+		
+		
+
+	}
+
+
+}
